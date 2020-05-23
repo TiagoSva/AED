@@ -13,7 +13,12 @@ namespace testeTXT
         public double Saldo { get; set; }
         public Titular Titular { get; set; }
         public DateTime DataAbertura{ get;set; }
-        public int PIN { get; set; }
+        public int PIN
+        {
+            get => _pin;
+
+            set => _pin = value.ToString().Length == 4 ? _pin : 0;   
+        }
 
 
 
