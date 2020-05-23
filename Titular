@@ -1,0 +1,135 @@
+namespace testeTXT
+{
+    class Titular
+    {
+        
+        private string _nome;
+        private int _nif;
+        private int _telefone;
+        private string _morada;
+        private DateTime _dataNascimento;
+
+         
+        public string Nome
+        {
+            get
+            {
+                return _nome;
+            }
+            set // neste set é colocado todas as primeiras letras do nome em maiusculas e se for maior que 50 caracteres
+                //automaticamente os nomes do meio ficam com a inicial maiuscula seguida de ponto.
+            {
+                _nome = normarlizaString(value);
+            }
+        }
+        public int Nif
+        {
+            get => _nif;
+            set => _nif = value.ToString().Length == 9 ? value : 000000000;
+        }
+        public int Telefone
+        {
+            get => _telefone;
+            set => _telefone = value.ToString().Length == 9 ? value : 000000000;
+        }
+        public string Morada
+        {
+            get
+            {
+                return _morada;
+            }
+            set// neste set é colocado todas as primeiras letras do nome em maiusculas e se for maior que 50 caracteres
+               //automaticamente os nomes do meio ficam com a inicial maiuscula seguida de ponto.
+            {
+                _morada = normarlizaString(value);
+            }
+        }
+        public DateTime DataNascimento
+        {
+            get
+            {
+                return _dataNascimento;
+            }
+            set
+            {
+                DateTime today = DateTime.Now;
+                int dayToday = today.Day,
+                    monthToday = today.Month,
+                    yearToday = today.Year;
+                
+                DateTime maxNascimento = DateTime.Parse($"{dayToday}/{monthToday}/{yearToday - 130}"),
+                         minNascimento = DateTime.Parse($"{dayToday}/{monthToday}/{yearToday - 18}"),
+                         myAge = value;
+
+                   _dataNascimento = DateTime.Compare(minNascimento, myAge) > -1 && DateTime.Compare(myAge, maxNascimento) > -1 ? myAge : DateTime.Parse("1/1/0001");
+
+            }
+        }
+
+  
+      
+        public Titular(string nome, int nif, int telefone, string morada, DateTime dataNascimento)
+        {
+            Nome = nome;
+            Nif = nif;
+            Telefone = telefone;
+            Morada = morada;
+            DataNascimento = dataNascimento;
+        }
+
+        public override string ToString()
+        {
+            return $"Nome: {Nome}\nNif: {Nif}\nTelefone: {Telefone}\nMorada: {Morada}\nData Nascimento: {DataNascimento}";
+        }
+
+        public void editMorada(string moradaNova)
+        {
+            Morada = moradaNova;
+        }
+        public void editTelef(int telefone)
+        {
+            Telefone = telefone;
+        }
+
+
+        // neste metodo  coloca todas as primeiras letras do nome em maiusculas e se for maior que 50 caracteres
+        //automaticamente os nomes do meio ficam com a inicial maiuscula seguida de ponto.
+        private string normarlizaString(string texto )
+        {
+            string nome = texto;
+
+            var vectorString = nome.Split(" ");
+
+            string nomeCerto = "";
+
+            for (int i = 0; i < vectorString.Length; i++)
+            {
+                nomeCerto += vectorString[i][0].ToString().ToUpper() + vectorString[i].Substring(1).ToLower();
+                nomeCerto += i < vectorString.Length - 1 ? " " : "";
+            }
+
+            if (nomeCerto.Length > 50)
+            {
+                var a = nomeCerto.Split(" ");
+
+                string primeiroNome = a[0] + " ",
+                       nomeMeio = "",
+                       ultimoNome = a[a.Length - 1];
+
+                //Console.WriteLine("aqui:"+ultimoNome);
+
+                for (int i = 1; i < a.Length - 1; i++)
+                {
+                    nomeMeio += a[i][0].ToString().ToUpper() + ". ";
+                }
+                return primeiroNome + nomeMeio + ultimoNome;
+            }
+            else
+            {
+                return nomeCerto;
+            }
+
+        } 
+        
+    }
+}
