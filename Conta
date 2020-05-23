@@ -1,0 +1,23 @@
+namespace testeTXT
+{
+    public abstract class Conta{
+        
+        int _numeroConta;
+        double _saldo;
+        Titular _Titular;
+        DateTime _dataAbertura;
+        int _pin;
+
+
+        public int NumerConta { get; set; }
+        public double Saldo { get; set; }
+        public Titular Titular { get; set; }
+        public DateTime DataAbertura{ get;set; }
+        public int PIN { get; set; }
+
+
+
+
+    }
+    
+}
